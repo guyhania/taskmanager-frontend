@@ -1,6 +1,3 @@
----
-
-```markdown
 # TaskManager Frontend
 
 This is the frontend for the **TaskManager** application — a full-featured task management interface built using **React**, **TypeScript**, **Redux Toolkit**, and **ShadCN UI** components. It integrates with a .NET backend to support task creation, editing, deletion, and reminder features.
