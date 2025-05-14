@@ -124,14 +124,3 @@ Using [`@openstatus/react-datetime-picker`](https://time.openstatus.dev/) for se
 * **React Testing Library**
 
 ---
-
-## 🧾 License
-
-MIT © \[Your Name]
-
-```
-
----
-
-Let me know if you'd like me to generate a version for the **backend README** or a `package.json` snippet too.
-```
