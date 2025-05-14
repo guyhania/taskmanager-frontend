@@ -1,181 +1,137 @@
-# TaskManager Frontend
+# 📋 TaskManager Frontend
 
-This is the frontend for the **TaskManager** application — a full-featured task management interface built using **React**, **TypeScript**, **Redux Toolkit**, and **ShadCN UI** components. It integrates with a .NET backend to support task creation, editing, deletion, and reminder features.
+A modern, responsive task management app built with **React**, **TypeScript**, and **ShadCN/UI**, designed to manage tasks efficiently with advanced UI features like filtering, sorting, pagination, modals, and a datetime picker.
 
 ---
 
 ## 🚀 Features
 
-- ✅ Add / Edit / Delete tasks
-- ✅ Modal form with validation (`zod + react-hook-form`)
-- ✅ Date-time picker (`openstatus/time`)
-- ✅ Dynamic data table with:
-  - Filtering by assignee
-  - Column visibility toggling
-  - Sorting (e.g. by priority or due date)
-  - Pagination
-- ✅ Visual indication of task status (due, overdue, etc.)
-- ✅ Redux-based state management
-- ✅ Responsive and accessible design using ShadCN UI
+- 🧾 Add, edit, and delete tasks
+- 🔍 Filter by assignee
+- ↕️ Sort by priority and due date
+- 🎛 Column visibility toggling
+- 📆 DateTime picker (using [OpenStatus Time Picker](https://time.openstatus.dev/))
+- ✨ Styled using [ShadCN/UI](https://ui.shadcn.dev/)
+- 🧪 Component tests with **Vitest** and **Testing Library**
 
 ---
 
-## 🧱 Tech Stack
-
-- **React + TypeScript**
-- **Redux Toolkit** for state management
-- **@tanstack/react-table** for data grid logic
-- **ShadCN UI** for styled components (built on Radix UI + Tailwind)
-- **Zod** for schema validation
-- **React Hook Form** for efficient form handling
-- **Vitest + Testing Library** for unit testing
-
----
-
-## 🛠️ Project Structure
+## 📁 Project Structure
 
 ```
 
 src/
 │
-├── components/            # Reusable UI components (e.g. TaskForm, Modals)
-│   └── ui/                # UI primitives from ShadCN (button, input, etc.)
-│
-├── features/              # Redux slices and domain logic
-│   └── tasks/
-│       ├── taskSlice.ts   # Redux logic and async thunks for task API
-│       └── taskTypes.ts   # Type definitions for Task entity
-│
-├── utils/                 # Utility functions (e.g. due date styling)
-├── **tests**/             # Unit tests using Vitest
-├── App.tsx
-├── main.tsx
-└── store.ts               # Redux store configuration
+├── components/          # Shared UI components (e.g. TaskForm, Modal, Button)
+├── features/tasks/      # Redux slice, task types and API logic
+├── hooks/               # Custom React hooks
+├── lib/                 # Utilities (e.g. Axios client, date utils)
+├── pages/               # Page layout components
+├── **tests**/           # Unit and integration tests
+└── App.tsx              # Main App entry point
 
 ````
 
 ---
 
-## 📦 Installation
+## ⚙️ Installation
 
-Make sure Node.js is installed.
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/your-username/taskmanager-frontend.git
 cd taskmanager-frontend
-npm install
 ````
+
+### 2. Install dependencies
+
+#### 🛑 React 19 users (recommended)
+
+Use the following command to avoid `peer dependency` conflicts with `react-day-picker` and `date-fns`:
+
+```bash
+npm install --legacy-peer-deps
+```
+
+#### ✅ Otherwise, standard install:
+
+```bash
+npm install
+```
 
 ---
 
-## 🧪 Running the App
+## 🧑‍💻 Development
+
+Start the dev server:
 
 ```bash
 npm run dev
 ```
 
-It will start the app on [http://localhost:5173](http://localhost:5173) (or another Vite port).
-
----
-
-## 🔄 Connecting to Backend
-
-This app expects the backend API to be running on:
-
-```
-https://localhost:7002/api/tasks
-```
-
-Make sure to start the **.NET TaskManager API** before testing the frontend.
-
 ---
 
 ## 🧪 Running Tests
 
-Make sure `vitest` and `jsdom` are installed:
+We use **Vitest** + **Testing Library** for unit testing.
 
-```bash
-npm install -D vitest jsdom @testing-library/react @testing-library/user-event @testing-library/jest-dom
-```
-
-Run tests:
+### Run tests:
 
 ```bash
 npx vitest
 ```
 
-Or:
+Or run in watch mode:
 
 ```bash
-npm run test
+npx vitest --watch
 ```
 
 ---
 
-## 📋 Key Implementations
+## 🔑 Key Implementations
 
-### 🧩 TaskForm (with DateTime Picker & Zod)
+### 🧱 Table Features
 
-* Validation rules defined with Zod
-* Controlled components powered by `react-hook-form`
-* `DateTimePicker` uses `@openstatus/time` component
+Implemented using `@tanstack/react-table`:
 
-### 📊 DataTable with Filters & Sorting
+* Sorting: Toggle sorting via column headers
+* Filtering: Uses controlled input bound to the `fullName` column
+* Column toggle: Via `DropdownMenuCheckboxItem`
+* Pagination: Next/Previous buttons and row count info
+* Row Actions: Dropdown with Edit/Delete
 
-* Built with `@tanstack/react-table`
-* Supports:
+### 📆 DateTime Picker
 
-  * Column sorting (by priority, due date)
-  * Column visibility
-  * Text filtering by assignee
-  * Pagination with Next / Previous
-  * Row-level action menu using `DropdownMenu`
+Using [`@openstatus/react-datetime-picker`](https://time.openstatus.dev/) for selecting due dates in task form.
 
-### 🎨 Due Date Styling
+### 🧠 State Management
 
-Utility function `getDueDateClass` highlights:
-
-* 🔴 Overdue tasks
-* 🟡 Due today
-* ✅ Normal due dates
-
-Used inside table cell renderers for visual clarity.
+* Redux Toolkit for managing tasks
+* Async thunks for `fetchTasks`, `addTask`, `updateTask`, and `deleteTask`
+* Connected to backend via `axios` client in `lib/axios.ts`
 
 ---
 
-## 🛡️ Linting & Formatting
+## 🛠 Tech Stack
 
-Use ESLint and Prettier (if set up) for consistent code:
-
-```bash
-npm run lint
-npm run format
-```
-
----
-
-## 📚 Future Enhancements
-
-* ✅ Better test coverage for UI logic
-* 🔜 Drag & drop reordering of tasks
-* 🔜 Notifications or reminders
-* 🔜 Tag/category support
+* **React 19**
+* **TypeScript**
+* **Redux Toolkit**
+* **ShadCN UI + Tailwind CSS**
+* **TanStack Table**
+* **Vitest** for testing
+* **React Testing Library**
 
 ---
 
-## 🤝 Contributing
+## 🧾 License
 
-Feel free to open issues or submit PRs! Clone this repo, create a feature branch, and submit a pull request.
-
----
-
-## 📄 License
-
-MIT License © \[Your Name]
+MIT © \[Your Name]
 
 ```
 
 ---
 
-Would you like me to generate the file and commit it automatically (if connected to GitHub), or help you extend this for backend docs as well?
+Let me know if you'd like me to generate a version for the **backend README** or a `package.json` snippet too.
 ```
