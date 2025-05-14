@@ -1,6 +1,7 @@
 # 📋 TaskManager Frontend
 
 A modern, responsive task management app built with **React**, **TypeScript**, and **ShadCN/UI**, designed to manage tasks efficiently with advanced UI features like filtering, sorting, pagination, modals, and a datetime picker.
+![image](https://github.com/user-attachments/assets/1a7d863f-8c5d-4b56-a5ca-98009ee6beca)
 
 ---
 
