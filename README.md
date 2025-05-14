@@ -74,7 +74,6 @@ npm run dev
 
 ## 🧪 Running Tests
 
-We use **Vitest** + **Testing Library** for unit testing.
 ❗While initial test cases were implemented using @testing-library/react and vitest, the tests did not run successfully due to environmental issues in the current React 19 setup.
 This is likely caused by misconfiguration or conflicts with React 19 and testing environments such as JSDOM or Vitest.
 
