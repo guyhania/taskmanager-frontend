@@ -1,7 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../../lib/axios"; // If not using alias
-// import axios from "@/lib/axios";
-
+import axios from "../../lib/axios";
 import type { Task } from "./taskTypes";
 
 interface TaskState {

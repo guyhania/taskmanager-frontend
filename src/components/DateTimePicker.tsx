@@ -12,16 +12,14 @@ import {
   PopoverTrigger,
 } from "../components/ui/popover";
 import { TimePicker } from "./TimePicker";
- // change
+ 
 interface TimePickerDemoProps {
     date: Date | undefined;
     setDate: (date: Date | undefined) => void;
   }
    
 
-export function DateTimePicker({ date, setDate }: TimePickerDemoProps) {
-//   const [date, setDate] = React.useState<Date>();
- 
+export function DateTimePicker({ date, setDate }: TimePickerDemoProps) { 
   /**
    * carry over the current time when a user clicks a new day
    * instead of resetting to 00:00
