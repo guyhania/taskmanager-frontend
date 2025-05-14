@@ -1,54 +1,126 @@
-# React + TypeScript + Vite
+# 📋 TaskManager Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive task management app built with **React**, **TypeScript**, and **ShadCN/UI**, designed to manage tasks efficiently with advanced UI features like filtering, sorting, pagination, modals, and a datetime picker.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 🧾 Add, edit, and delete tasks
+- 🔍 Filter by assignee
+- ↕️ Sort by priority and due date
+- 🎛 Column visibility toggling
+- 📆 DateTime picker (using [OpenStatus Time Picker](https://time.openstatus.dev/))
+- ✨ Styled using [ShadCN/UI](https://ui.shadcn.dev/)
+- 🧪 Component tests with **Vitest** and **Testing Library**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 📁 Project Structure
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+src/
+│
+├── components/          # Shared UI components (e.g. TaskForm, Modal, Button)
+├── features/tasks/      # Redux slice, task types and API logic
+├── hooks/               # Custom React hooks
+├── lib/                 # Utilities (e.g. Axios client, date utils)
+├── pages/               # Page layout components
+├── **tests**/           # Unit and integration tests
+└── App.tsx              # Main App entry point
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+````
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+---
+
+## ⚙️ Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/taskmanager-frontend.git
+cd taskmanager-frontend
+````
+
+### 2. Install dependencies
+
+#### 🛑 React 19 users (recommended)
+
+Use the following command to avoid `peer dependency` conflicts with `react-day-picker` and `date-fns`:
+
+```bash
+npm install --legacy-peer-deps
 ```
+
+#### ✅ Otherwise, standard install:
+
+```bash
+npm install
+```
+
+---
+
+## 🧑‍💻 Development
+
+Start the dev server:
+
+```bash
+npm run dev
+```
+
+---
+
+## 🧪 Running Tests
+
+We use **Vitest** + **Testing Library** for unit testing.
+
+### Run tests:
+
+```bash
+npx vitest
+```
+
+Or run in watch mode:
+
+```bash
+npx vitest --watch
+```
+
+---
+
+## 🔑 Key Implementations
+
+### 🧱 Table Features
+
+Implemented using `@tanstack/react-table`:
+
+* Sorting: Toggle sorting via column headers
+* Filtering: Uses controlled input bound to the `fullName` column
+* Column toggle: Via `DropdownMenuCheckboxItem`
+* Pagination: Next/Previous buttons and row count info
+* Row Actions: Dropdown with Edit/Delete
+
+### 📆 DateTime Picker
+
+Using [`@openstatus/react-datetime-picker`](https://time.openstatus.dev/) for selecting due dates in task form.
+
+### 🧠 State Management
+
+* Redux Toolkit for managing tasks
+* Async thunks for `fetchTasks`, `addTask`, `updateTask`, and `deleteTask`
+* Connected to backend via `axios` client in `lib/axios.ts`
+
+---
+
+## 🛠 Tech Stack
+
+* **React 19**
+* **TypeScript**
+* **Redux Toolkit**
+* **ShadCN UI + Tailwind CSS**
+* **TanStack Table**
+* **Vitest** for testing
+* **React Testing Library**
+
+---
