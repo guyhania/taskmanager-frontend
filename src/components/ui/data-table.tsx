@@ -1,6 +1,3 @@
-"use client"
-
-import * as React from "react"
 import {
   type ColumnDef,
   type ColumnFiltersState,
@@ -25,16 +22,15 @@ import {
 
 import { Input } from "./input"
 import { Button } from "./button"
-import { ChevronDown, MoreHorizontal } from "lucide-react"
+import { ChevronDown } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./dropdown-menu"
+import { TaskFormModal } from "../TaskFormModal"
+import { useState } from "react"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -42,10 +38,10 @@ interface DataTableProps<TData, TValue> {
 }
 
 export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = React.useState({})
+  const [sorting, setSorting] = useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+  const [rowSelection, setRowSelection] = useState({})
 
   const table = useReactTable({
     data,
@@ -75,6 +71,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           onChange={(event) => table.getColumn("fullName")?.setFilterValue(event.target.value)}
           className="max-w-sm"
         />
+        <TaskFormModal />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -139,6 +136,9 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
       <div className="flex items-center justify-between py-4">
         <div className="text-sm text-muted-foreground">
           Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+        </div>
+        <div className="text-sm text-muted-foreground">
+          Showing {table.getRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
         </div>
         <div className="space-x-2">
           <Button

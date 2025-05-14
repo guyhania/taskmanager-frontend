@@ -15,11 +15,11 @@ interface TaskFormModalProps {
 
 export function TaskFormModal({ trigger, task, title, onSuccess, open, setOpen }: TaskFormModalProps) {
 
-    // const [open, setOpen] = useState(trigger ? false : !!task);
     const [internalOpen, setInternalOpen] = useState(false);
     const isControlled = open !== undefined && setOpen !== undefined;
     const isOpen = isControlled ? open : internalOpen;
     const setOpenState = isControlled ? setOpen : setInternalOpen;
+
     useEffect(() => {
         if (!trigger && task) {
             setOpen?.(true);
@@ -30,7 +30,7 @@ export function TaskFormModal({ trigger, task, title, onSuccess, open, setOpen }
         <AppDialog
             open={isOpen}
             setOpen={setOpenState}
-            {...(!task ? { trigger: <Button>Add Task</Button> } : {})}
+            {...(!task ? { trigger: <Button variant="default">Add Task</Button> } : {})}
             title={title ?? (task ? "Edit Task" : "Add Task")}
         >
             <TaskForm

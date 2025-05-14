@@ -3,10 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import type { AppDispatch, RootState } from "../store";
 import { fetchTasks } from "../features/tasks/taskSlice";
 import { DataTable } from "./ui/data-table";
-import { columns } from "./columns";
 import type { Task } from "../features/tasks/taskTypes";
 import { TaskFormModal } from "./TaskFormModal.tsx";
-// import { DataTableDemo } from "./ui/DataTableDemo.tsx";
+import { Columns } from "./columns.tsx";
 
 export function TaskTable() {
     const dispatch = useDispatch<AppDispatch>();
@@ -28,8 +27,7 @@ export function TaskTable() {
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <DataTable columns={columns(dispatch, setEditingTask, setIsEditOpen)} data={tasks} />
-                // <DataTableDemo/>
+                <DataTable columns={Columns(dispatch, setEditingTask, setIsEditOpen)} data={tasks} />
             )}
             {editingTask && (
                 <TaskFormModal

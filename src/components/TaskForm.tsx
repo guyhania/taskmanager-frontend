@@ -1,14 +1,13 @@
+import type { AppDispatch } from "../store";
+import type { Task } from "../features/tasks/taskTypes";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch } from "react-redux";
 import { addTask, updateTask } from "../features/tasks/taskSlice";
-import type { AppDispatch } from "../store";
-import type { Task } from "../features/tasks/taskTypes";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-// import { Calendar } from "./ui/calendar";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "./ui/select";
 import { Button } from "./ui/button";
 import { DateTimePicker } from "./DateTimePicker";
@@ -59,21 +58,21 @@ export function TaskForm({
     }
   }, [task, reset]);
 
-  const onSubmit = (data: TaskFormData) => {    
+  const onSubmit = (data: TaskFormData) => {
     const payload = {
       ...data,
       dueDate: data.dueDate.toISOString(),
       isReminderSent: false,
     };
-    
-    if (task?.id) {    
+
+    if (task?.id) {
       (payload as Task).id = String(task.id);
     }
 
     const action = task
       ? updateTask(payload as Task)
       : addTask(payload as Omit<Task, "id">);
-      dispatch(action).then((res) => {
+    dispatch(action).then((res) => {
       if ("meta" in res && res.meta.requestStatus === "fulfilled") {
         reset();
         onSuccess?.();
@@ -119,8 +118,10 @@ export function TaskForm({
       <Input placeholder="Full Name" {...register("fullName")} />
       <Input placeholder="Phone" {...register("telephone")} />
       <Input placeholder="Email" {...register("email")} />
-
-      <Button type="submit">{task ? "Update Task" : "Add Task"}</Button>
+      
+      <div className="flex justify-center">
+        <Button type="submit">{task ? "Update Task" : "Add Task"}</Button>
+      </div>
     </form>
   );
 }
